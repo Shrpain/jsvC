@@ -39,9 +39,45 @@ public class giohangbo {
 			}
 		}
 	}
+	
 	public void XoaALL() {
 		ds.clear();
 	}
+	
+	public void XoaMuc(int index) {
+	    if (ds != null && index >= 0 && index < ds.size()) {
+	        ds.remove(index);
+	    }
+	}
+	
+	public void Cong(String masach) throws Exception{
+		int n = ds.size();
+		for (int i = 0; i < n; i++) {
+			if(ds.get(i).getMasach().toLowerCase().trim().equals(masach.toLowerCase().trim())) {
+				long a = ds.get(i).getSoluong();
+				ds.get(i).setSoluong(a+1);
+				ds.get(i).setThanhtien(ds.get(i).getSoluong()*ds.get(i).getGia());
+				break;
+			}
+		}
+	}
+	public void tru(String masach) throws Exception{
+		int n = ds.size();
+		for (int i = 0; i < n; i++) {
+			if(ds.get(i).getMasach().toLowerCase().trim().equals(masach.toLowerCase().trim())) {
+				long a = ds.get(i).getSoluong();
+				if(a>0) {
+					ds.get(i).setSoluong(a-1);
+					ds.get(i).setThanhtien(ds.get(i).getSoluong()*ds.get(i).getGia());
+					break;
+				}else { if(a==0){
+					Xoahang(masach);
+					}
+				}
+			}
+		}
+	}
+	
 	public Long Tongtien() throws Exception{
 		Long tong=(long) 0;
 		for (giohangbean gh : ds) {
@@ -49,27 +85,6 @@ public class giohangbo {
 		}
 		return tong;
 	}
-	
-	public void Sua(String masach, int soLuongThayDoi) throws Exception {
-	    int n = ds.size();
-	    for (int i = 0; i < n; i++) {
-	        if (ds.get(i).getMasach().toLowerCase().trim().equals(masach.toLowerCase().trim())) {
-	            long soLuongHienTai = ds.get(i).getSoluong();
-	            long soLuongMoi = soLuongHienTai + soLuongThayDoi;
-
-	            if (soLuongMoi >= 0) {
-	                ds.get(i).setSoluong(soLuongMoi);
-	                ds.get(i).setThanhtien(ds.get(i).getSoluong() * ds.get(i).getGia());
-	            } else {
-	                // Nếu số lượng mới là số âm, bạn có thể xử lý tùy theo yêu cầu của bạn ở đây.
-	                // Ví dụ: Ghi log hoặc ném một ngoại lệ.
-	                throw new Exception("Số lượng không hợp lệ");
-	            }
-	            break;
-	        }
-	    }
-	}
-
 
 
 }
