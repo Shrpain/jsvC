@@ -1,6 +1,7 @@
+<%@page import="bo.giohangbo"%>
+<%@page import="bean.LoaiBean"%>
 <%@page import="bean.sachbean"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="bean.loaibean"%>
 <%@page import="bo.sachbo"%>
 <%@page import="bo.loaibo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -14,6 +15,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
+<%
+long slg=0;
+if(session.getAttribute("gh")!=null){
+	giohangbo ghbo =new giohangbo();
+	ghbo = (giohangbo)session.getAttribute("gh");
+	slg = ghbo.ds.size();
+}
+%>
+
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -21,7 +32,7 @@
             <a class="navbar-brand" href="Menu.jsp">Trang Chủ</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="GioHang.jsp"><span class="glyphicon glyphicon-shopping-cart"></span>Giỏ Hàng</a></li>
+            <li><a href="DatHang.jsp"><span class="glyphicon glyphicon-shopping-cart"></span>Giỏ Hàng(<%=slg %>) </a></li>
             <li><a href="CreditCard.jsp"><span class="glyphicon glyphicon-credit-card"></span>Thanh Toán</a></li>
             <li><a href="HistoryPay.jsp"><span class="glyphicon glyphicon-th-list"></span>Lịch Sử Mua Hàng</a></li>
         </ul>
@@ -53,7 +64,7 @@ sachbo sbo = new sachbo();
         <td width="200" valign="top">
             <table class="table table-hover">
                 <%
-                for (loaibean l : lbo.getloai()) {
+                for (LoaiBean l : lbo.getloai()) {
                 %>
                 <tr>
                     <td><a href="Menu.jsp?ml=<%=l.getMaloai()%>"> <%=l.getMaloai()%></a></td>
